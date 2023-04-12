@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <title>Zakat Calculator</title>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="card-header">
+              <h3>Calculate Your Zakat</h3>
+            </div>
+            <div class="card-body">
+              <h4>Assets (Value in U.S. Dollars)</h4>
+              <hr />
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for="">Nisab Standard*</small>
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <select
+                      name=""
+                      id="nesab_changer"
+                      class="form-control form-select"
+                      onchange="getNesab(this.value)"
+                    >
+                      <option value="gold">Gold Standard</option>
+                      <option value="silver">Silver Standard</option>
+                    </select>
+                    <small class="text-muted"
+                      >*The Nisab the Prophet SAWS established was 20 gold
+                      dinars (87.48 g) or 200 silver dirhams (612.36 g). The
+                      scholars have given fatwas regarding the permissibility of
+                      using either one. Depending upon which standard you use,
+                      your Nisab threshold will be higher or lower.</small
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for="">Cash on Hand</small>
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="cash_on_hand"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Balance Held in Bank Accounts (Checking, Savings &
+                    Business)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="bank_amount"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Resale Value of Shares (Stocks & Mutual Funds)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="stock_mutuals"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Resale Investment Property (Market Value)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="market_value"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Retirement Plans (Vested 401K & IRA)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="retirement_plans"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Business Inventory (Wholesale Value)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="wholesale_value"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Gold & Silver Jewlery (at Current Value)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="current_value"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Gold & Silver Bullion (at Current Value)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="current_value_bullion"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Debts Owed to You (Money Lent to Others)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="money_lent"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for="">Accounts Receivable</small>
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="account_received"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for="">Total Assets</small>
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      id="total_assets"
+                      type="number"
+                      readonly
+                      value="0"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Liabilities -->
+              <h4>Liabilities (Value in U.S. Dollars)</h4>
+              <hr />
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Short Term Debts (Entire Amount Due)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="entire_amount_due"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Long Term Debts (1 Month Mortgage Payment, 1 Month Car
+                    Payment, 1 Month Student Loan Payment, etc.)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="long_term_debts"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Incurred Expenses for the Current Month (Rent, Utilities,
+                    Credit Card Bills, etc.)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="expense"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Wages Due to Others (Personal or Business)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="wages_due"
+                      class="form-control"
+                      placeholder="$"
+                      min="0"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for="">Total Liabilities</small>
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      id="total_liabilities"
+                      class="form-control"
+                      placeholder="$"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Total Zakatable Amount</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      id="total_zakatable"
+                      type="number"
+                      readonly
+                      class="form-control"
+                      placeholder="$"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for=""
+                    >Nisab* (Gold Standard)</small
+                  >
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      type="number"
+                      readonly
+                      id="nesab_change_value"
+                      class="form-control"
+                      placeholder=""
+                      value="5478.87"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <small class="text-muted" for="">Your Zakat</small>
+                </div>
+                <div class="col-lg-8">
+                  <div class="mb-3">
+                    <input
+                      id="your_zakat"
+                      type="number"
+                      readonly
+                      class="form-control"
+                      placeholder="$"
+                    />
+                    <small class="text-muted"
+                      >(0.025 x Total Zakatable Amount)</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
+      </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      function getValue(id) {
+        var value = document.getElementById(id).value;
+        if (value == "" || isNaN(value)) {
+          return 0;
+        } else {
+          return parseFloat(value);
+        }
+      }
+      // on change nesab vale change
+      var nesab_change_value = document.getElementById("nesab_change_value");
+      function getNesab(value) {
+        if (value == "gold") {
+          nesab_change_value.value = 5478.87;
+        } else {
+          nesab_change_value.value = 489.88;
+        }
+      }
+
+      // calculate the zakat
+
+      // assets
+      var cash_on_hand_input = document.getElementById("cash_on_hand");
+      var bank_amount_input = document.getElementById("bank_amount");
+      var stock_mutuals_input = document.getElementById("stock_mutuals");
+      var market_value_input = document.getElementById("market_value");
+      var retirement_plans_input = document.getElementById("retirement_plans");
+      var wholesale_value_input = document.getElementById("wholesale_value");
+      var current_value_input = document.getElementById("current_value");
+      var current_value_bullion_input = document.getElementById(
+        "current_value_bullion"
+      );
+      var money_lent_input = document.getElementById("money_lent");
+      var account_received_input = document.getElementById("account_received");
+
+      // Liabilities
+      var entire_amount_due_input =
+        document.getElementById("entire_amount_due");
+      var long_term_debts_input = document.getElementById("long_term_debts");
+      var expense_input = document.getElementById("expense");
+      var wages_due_input = document.getElementById("wages_due");
+
+      // asset input change
+      cash_on_hand_input.addEventListener("change", calculate);
+      cash_on_hand_input.addEventListener("keyup", calculate);
+      bank_amount_input.addEventListener("change", calculate);
+      bank_amount_input.addEventListener("keyup", calculate);
+      stock_mutuals_input.addEventListener("change", calculate);
+      stock_mutuals_input.addEventListener("keyup", calculate);
+      market_value_input.addEventListener("change", calculate);
+      market_value_input.addEventListener("keyup", calculate);
+      retirement_plans_input.addEventListener("change", calculate);
+      retirement_plans_input.addEventListener("keyup", calculate);
+      wholesale_value_input.addEventListener("change", calculate);
+      wholesale_value_input.addEventListener("keyup", calculate);
+      current_value_input.addEventListener("change", calculate);
+      current_value_input.addEventListener("keyup", calculate);
+      current_value_bullion_input.addEventListener("change", calculate);
+      current_value_bullion_input.addEventListener("keyup", calculate);
+      money_lent_input.addEventListener("change", calculate);
+      money_lent_input.addEventListener("keyup", calculate);
+      account_received_input.addEventListener("change", calculate);
+      account_received_input.addEventListener("keyup", calculate);
+
+      // liabilities change
+      entire_amount_due_input.addEventListener("change", calculate);
+      entire_amount_due_input.addEventListener("keyup", calculate);
+      long_term_debts_input.addEventListener("change", calculate);
+      long_term_debts_input.addEventListener("keyup", calculate);
+      expense_input.addEventListener("change", calculate);
+      expense_input.addEventListener("keyup", calculate);
+      wages_due_input.addEventListener("change", calculate);
+      wages_due_input.addEventListener("keyup", calculate);
+
+      function calculate() {
+        // assets values
+        var bank_amount = getValue("bank_amount");
+        var cash_on_hand = getValue("cash_on_hand");
+        var stock_mutuals = getValue("stock_mutuals");
+        var market_value = getValue("market_value");
+        var retirement_plans = getValue("retirement_plans");
+        var wholesale_value = getValue("wholesale_value");
+        var current_value = getValue("current_value");
+        var current_value_bullion = getValue("current_value_bullion");
+        var money_lent = getValue("money_lent");
+        var account_received = getValue("account_received");
+
+        // Liabilities values
+        var entire_amount_due = getValue("entire_amount_due");
+        var long_term_debts = getValue("long_term_debts");
+        var expense = getValue("expense");
+        var wages_due = getValue("wages_due");
+
+        // nisab values
+        var amt_nisab = getValue("nesab_change_value");
+
+        var total_assets = document.getElementById("total_assets");
+        var total_liabilities = document.getElementById("total_liabilities");
+        var total_zakatable = document.getElementById("total_zakatable");
+        var your_zakat = document.getElementById("your_zakat");
+
+        // Assets Gross Total
+        var amt_assets_gross =
+          cash_on_hand +
+          bank_amount +
+          stock_mutuals +
+          market_value +
+          retirement_plans +
+          wholesale_value +
+          current_value +
+          current_value_bullion +
+          money_lent +
+          account_received;
+        // Liabilities gross total
+        var amt_liabilities =
+          entire_amount_due + long_term_debts + expense + wages_due;
+        // amount net total
+        var amt_assets_net = amt_assets_gross - amt_liabilities;
+
+        var amt_eligable = 0;
+        if (amt_assets_net > amt_nisab) {
+          amt_eligable = amt_assets_net;
+        }
+        var amt_zakat = amt_eligable * 0.025;
+        total_assets.value = amt_assets_gross;
+        total_liabilities.value = amt_liabilities;
+        total_zakatable.value = amt_eligable;
+        your_zakat.value = amt_zakat.toFixed(2);
+      }
+    </script>
+  </body>
+</html>
